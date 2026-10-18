@@ -24,10 +24,13 @@ public class MatchesController : Controller
 
     // GET /Matches            -> all matches
     // GET /Matches?status=Scheduled -> filtered board
-    public async Task<IActionResult> Index(MatchStatus? status)
+
+    // GET /Matches?search=America -> filtered board guarda todo los datos al buscar un equipo en especifico
+    public async Task<IActionResult> Index(MatchStatus? status, string? search)
     {
         ViewBag.CurrentStatus = status;
-        var board = await _matchService.GetBoardAsync(status);
+        ViewBag.Search = search;
+        var board = await _matchService.GetBoardAsync(status,search);
         return View(board);
     }
 
